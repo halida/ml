@@ -1,0 +1,16 @@
+*.orig
+/log
+/tmp
+/coverage
+*~
+*.bak
+.directory
+*#
+.#*
+.DS_Store
+
+tags
+*.swp
+
+*.zip
+*.pdf
