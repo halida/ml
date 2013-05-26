@@ -30,12 +30,16 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+p = X * all_theta'
 
+out = []
+for i=1:m,
+  v = p(i, :)
+  o = find(v == max(v));
+  out = [out; o]
+end
 
-
-
-
-
+p = out
 % =========================================================================
 
 
