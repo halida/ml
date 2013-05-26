@@ -61,24 +61,56 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
+nx = [ones(m, 1) X];
 
+ny = y * ones(1, num_labels);
+ny = ny == ([1:num_labels]' * ones(1, m))';
 
+a1 = nx;
+z2 = nx * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m, 1) a2];
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
 
+predict = a3 == max(a3')' * ones(1, num_labels);
 
+v = - ny .* log(a3) - (1 - ny) .* log(1 - a3);
+J = 1 / m * sum(v(:));
 
+sums = [Theta1(:, 2:end)(:); Theta2(:, 2:end)(:)];
 
+J += lambda / (2 * m) * sum(sums .^ 2);
 
+% partial derivative
 
+d1 = 0;
+d2 = 0;
 
+delta3 = a3 - ny;
+delta2 = ((Theta2)' * delta3')'(:, 2:end) .* sigmoidGradient(z2);
+## disp(size(delta3));
+## disp(size(delta2));
 
+for t=1:m,
+    tdelta3 = delta3(t, :);
+    tdelta2 = delta2(t, :);
+    ta1 = a1(t, :);
+    ta2 = a2(t, :);
+    disp(size((tdelta3' * ta2)(:)));
+    Theta2_grad = Theta2_grad .+ (tdelta3' * ta2);
+    Theta1_grad = Theta1_grad .+ (tdelta2' * ta1);
+end;
 
+Theta1_grad /= m;
+Theta2_grad /= m;
 
+## lambda
+t1 = [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+t2 = [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
 
-
-
-
-
-
+Theta1_grad += lambda / m * t1;
+Theta2_grad += lambda / m * t2;
 
 % -------------------------------------------------------------
 
