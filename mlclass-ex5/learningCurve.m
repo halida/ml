@@ -52,12 +52,24 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
+nx = X;
+nxv = Xval;
 
+error_train = [];
+error_val   = [];
 
+for i = 1:m,
+  nxi = nx(1:i, :);
+  nxvi = Xval;
+  yi = y(1:i, :);
+  [theta] = trainLinearReg(nxi, yi, lambda);
 
+  [Jtrain] = linearRegCostFunction(nxi, yi, theta, 0);
+  [Jval] = linearRegCostFunction(nxvi, yval, theta, 0);
 
-
-
+  error_train = [error_train; Jtrain];
+  error_val = [error_val; Jval];
+end;
 
 % -------------------------------------------------------------
 
