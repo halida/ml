@@ -21,11 +21,14 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
-
+for i=1:size(X, 1),
+  ps = [];
+  for c=1:K,
+    p = sqrt(sum((centroids(c,:) - X(i,:)) .^2));
+    ps = [ps, p];
+  end;
+  [v, idx(i)] = min(ps);
+end
 
 % =============================================================
 
