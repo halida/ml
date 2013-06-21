@@ -40,7 +40,7 @@ xlabel('Latency (ms)');
 ylabel('Throughput (mb/s)');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause
+% pause
 
 
 %% ================== Part 2: Estimate the dataset statistics ===================
@@ -66,7 +66,7 @@ xlabel('Latency (ms)');
 ylabel('Throughput (mb/s)');
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+% pause;
 
 %% ================== Part 3: Find Outliers ===================
 %  Now you will find a good epsilon threshold using a cross-validation set
@@ -81,7 +81,7 @@ fprintf('Best F1 on Cross Validation Set:  %f\n', F1);
 fprintf('   (you should see a value epsilon of about 8.99e-05)\n\n');
 
 %  Find the outliers in the training set and plot the
-outliers = find(p < epsilon);
+outliers = find(pval < epsilon);
 
 %  Draw a red circle around those outliers
 hold on
